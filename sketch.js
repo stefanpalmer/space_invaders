@@ -96,6 +96,9 @@ function draw() {
       // Sort through aliens array
       for (var j = 0; j < aliens.length; j++){
           // If missile hits an alien
+          if (missiles[i].y < 0) {
+              missiles[i].destroy = true;
+          }
           if (missiles[i].hits(aliens[j])) {
               // Missile destroyed, alien killed (removed from array), & score increases by 10 points
               missiles[i].destroy = true;
@@ -155,7 +158,7 @@ var last = missiles.length - 1;
 //if (missiles[last][y] < 0) {
 function keyPressed() {
   // If spacebar is pressed a new instance of Missile is created
-  if (key === ' ') {
+  if (key === ' ' && missiles.length < 1) {
     // missile created from spaceShip x position
         var missile = new Missile(spaceShip.x,spaceShip.y - 10);
         // bullet pushed into bullets array
