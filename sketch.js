@@ -6,13 +6,15 @@ var bossBullets = [];
 var score = 0;
 var alienImage;
 var bossImage;
+var youWin;
 var gameOver;
 
 // Loads image of Alien, Boss and GameOver into project
 function preload() {
     alienImage = loadImage('images/alien.png');
     bossImage = loadImage('images/boss.png');
-    gameOver = loadImage('images/win.png');
+    youWin = loadImage('images/win.png');
+    gameOver = loadImage('images/gameover.png');
 }
 
 // What's already set up at beginning of project
@@ -147,10 +149,18 @@ function draw() {
       }
   }
 
-  // If length of aliens array is 0, the game over image appears - GameOver() function
+  // If length of aliens array is 0, the youWin image appears - YouWin() function
   if (aliens.length == 0) {
-      var gameends = new GameOver(350,250);
+      var gameends = new YouWin(350,250);
       gameends.show();
+  }
+
+  // If y value of an alien is greater or equal to spaceship, gameOver image appears - GameOver() function
+  for (var i = 0; i < aliens.length; i++) {
+      if (aliens[i].y >= spaceShip.y){
+          var lose = new GameOver(350,250);
+          lose.show();
+      }
   }
 
 }

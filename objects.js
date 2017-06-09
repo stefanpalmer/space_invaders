@@ -137,6 +137,18 @@ function BossBullets(x,y) {
     }
 }
 
+// YOU WIN
+function YouWin(x,y) {
+    this.x = x;
+    this.y = y;
+
+    // Image appears when show() function is called
+    this.show = function() {
+        imageMode(CENTER);
+        image(youWin, this.x, this.y, 700, 400);
+    }
+}
+
 // GAME OVER
 function GameOver(x,y) {
     this.x = x;
@@ -145,9 +157,7 @@ function GameOver(x,y) {
     // Image appears when show() function is called
     this.show = function() {
         imageMode(CENTER);
-        image(gameOver, this.x, this.y, 700, 400);
+        image(gameOver, this.x, this.y, 700, 500);
     }
 }
-
-
 
