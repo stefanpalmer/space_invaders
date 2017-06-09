@@ -43,34 +43,34 @@ function setup() {
       }
   }
 
-  // Instance of Boss object
+  // Instance of Boss object - starting x and y positions
   boss = new Boss(1900, 30);
 
 }
 
-// Function that continuously executes
+// p5.js Function that continuously executes
 function draw() {
 
   // Background color of canvas
   background(0,0,0);
 
-  // Show the spaceship (show() method and features created in SpaceShip function)
+  // Show the spaceship - show() method and features created in SpaceShip function
   spaceShip.show();
 
-  // Left and right arrow keys to change x position of spaceShip with keyIsDown() function
+  // Left and right arrow keys to change x position of spaceShip with p5.js keyIsDown() function
   if (keyIsDown(LEFT_ARROW))
       spaceShip.x-=5;
   if (keyIsDown(RIGHT_ARROW))
       spaceShip.x+=5;
 
-  // Display score - set text size, alignment, fill
+  // Display score - set text size, alignment, fill functions
     textSize(16);
     textAlign(LEFT,TOP);
     fill(250);
     // Score variable
     text("Score: " + score, 20, 470);
 
-  // Show each alien in aliens array
+  // Show each alien in aliens array - following actions in Alien() function
   for (var i = 0; i < aliens.length; i++){
       aliens[i].show();
       // Aliens move
@@ -84,21 +84,23 @@ function draw() {
       }
   }
 
-  // Show the boss (initial position outside of canvas)
+  // Show the boss (initial position outside of canvas) - Boss() function
   boss.show();
   // The boss moves
   boss.move();
 
-  // Show and shoot each missile in missiles array
+  // Show and shoot each missile in missiles array - Missile() function
   for (var i = 0; i < missiles.length; i++){
       missiles[i].show();
       missiles[i].shoot();
       // Sort through aliens array
       for (var j = 0; j < aliens.length; j++){
-          // If missile hits an alien
+          // If missile leaves canvas
           if (missiles[i].y < 0) {
+              // Missile destroy becomes true
               missiles[i].destroy = true;
           }
+          // If missile hits an alien
           if (missiles[i].hits(aliens[j])) {
               // Missile destroyed, alien killed (removed from array), & score increases by 10 points
               missiles[i].destroy = true;
@@ -122,7 +124,7 @@ function draw() {
       }
   }
 
-  // The boss reverses direction when x position reaches -900
+  // The boss reverses direction when its x position reaches -900
   if (boss.x < -900 ) {
       boss.reverse();
   }
@@ -135,7 +137,7 @@ function draw() {
       bossBullets.push(bossBullet);
   }
 
-  // Boss bullet shown and shoots
+  // Boss bullet show and shoot - BossBullets() function
   for (i=0; i < bossBullets.length; i++) {
       bossBullets[i].show();
       bossBullets[i].shoot();
@@ -145,7 +147,7 @@ function draw() {
       }
   }
 
-  // If length of aliens array is 0, the game over image appears
+  // If length of aliens array is 0, the game over image appears - GameOver() function
   if (aliens.length == 0) {
       var gameends = new GameOver(350,250);
       gameends.show();
@@ -154,15 +156,13 @@ function draw() {
 }
 
 // Function executes if certain keys are pressed
-var last = missiles.length - 1;
-//if (missiles[last][y] < 0) {
 function keyPressed() {
   // If spacebar is pressed a new instance of Missile is created
+  // This can only be done if the length of the missiles array is 0 (one missile on canvas at a time)
   if (key === ' ' && missiles.length < 1) {
     // missile created from spaceShip x position
         var missile = new Missile(spaceShip.x,spaceShip.y - 10);
         // bullet pushed into bullets array
         missiles.push(missile);
     }
-  //}
 }
